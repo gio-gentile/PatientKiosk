@@ -1,0 +1,70 @@
+{
+  "id": "who5",
+  "name": "WHO-5",
+  "description": "Well-Being Index",
+  "questions": [
+    {
+      "text": "Quanto la malattia della pelle ha influenzato la sua vita quotidiana?",
+      "answers": [
+        {
+          "text": "Per niente",
+          "score": 0
+        },
+        {
+          "text": "Poco",
+          "score": 1
+        },
+        {
+          "text": "Abbastanza",
+          "score": 2
+        },
+        {
+          "text": "Moltissimo",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "text": "Quanto ha provato imbarazzo o disagio a causa della pelle?",
+      "answers": [
+        {
+          "text": "Per niente",
+          "score": 0
+        },
+        {
+          "text": "Poco",
+          "score": 1
+        },
+        {
+          "text": "Abbastanza",
+          "score": 2
+        },
+        {
+          "text": "Moltissimo",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "text": "Quanto la pelle ha interferito con le attività quotidiane?",
+      "answers": [
+        {
+          "text": "Per niente",
+          "score": 0
+        },
+        {
+          "text": "Poco",
+          "score": 1
+        },
+        {
+          "text": "Abbastanza",
+          "score": 2
+        },
+        {
+          "text": "Moltissimo",
+          "score": 3
+        }
+      ]
+    }
+  ]
+}
