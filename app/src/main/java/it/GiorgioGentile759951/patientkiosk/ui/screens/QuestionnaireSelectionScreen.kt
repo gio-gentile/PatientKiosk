@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import it.GiorgioGentile759951.patientkiosk.data.model.Questionnaire
+import it.GiorgioGentile759951.patientkiosk.viewmodels.QuestionnaireViewModel
 
 @Composable
 fun QuestionnaireSelectionScreen(
+    patientCode: String,
     questionnaires: List<Questionnaire>,
     onQuestionnaireSelected: (Questionnaire) -> Unit
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -27,6 +28,18 @@ fun QuestionnaireSelectionScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        if (questionnaires.isEmpty()) {
+            Text(
+                text = "Nessun questionario disponibile",
+                fontSize = 24.sp
+            )
+
+            return
+        }
+
+        Text(
+            text = patientCode
+        )
 
         Text(
             text = "Seleziona un questionario",

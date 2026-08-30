@@ -1,18 +1,14 @@
 package it.GiorgioGentile759951.patientkiosk.ui.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import it.GiorgioGentile759951.patientkiosk.data.model.Answer
-import it.GiorgioGentile759951.patientkiosk.data.model.Question
-import it.GiorgioGentile759951.patientkiosk.data.model.Questionnaire
 import it.GiorgioGentile759951.patientkiosk.data.repository.QuestionnaireRepository
+import it.GiorgioGentile759951.patientkiosk.viewmodels.QuestionnaireViewModel
 
 @Composable
 fun PatientKioskApp() {
@@ -24,17 +20,11 @@ fun PatientKioskApp() {
         QuestionnaireRepository(context)
     }
 
-    val questionnaire = remember {
-        repository.loadQuestionnaire("dlqi.json")
-    }
-
     val questionnaires = remember {
         repository.getAvailableQuestionnaires()
     }
 
-    var selectedQuestionnaire by remember {
-        mutableStateOf<Questionnaire?>(null)
-    }
+    val questionnaireViewModel: QuestionnaireViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -44,43 +34,41 @@ fun PatientKioskApp() {
         composable("welcome") {
             WelcomeScreen(
                 onStartClick = {
+                    navController.navigate("patient")
+                }
+            )
+        }
+
+        composable("patient") {
+            PatientIdentificationScreen(
+                onContinue = { code ->
+                    questionnaireViewModel.updatePatientCode(code)
                     navController.navigate("questionnaires")
                 }
             )
         }
 
         composable("questionnaires") {
-
             QuestionnaireSelectionScreen(
+                patientCode = questionnaireViewModel.patientCode,
                 questionnaires = questionnaires,
                 onQuestionnaireSelected = { questionnaire ->
+                    val started = questionnaireViewModel.startQuestionnaire(questionnaire)
 
-                    selectedQuestionnaire = questionnaire
-                    navController.navigate("question")
-                }
-            )
-        }
-
-        composable("questionnaire") {
-            QuestionScreen(
-                questionnaire = questionnaire,
-                onFinished = { score ->
-                    navController.navigate("result/$score")
+                    if (started) {
+                        navController.navigate("question")
+                    }
                 }
             )
         }
 
         composable("question") {
-
-            selectedQuestionnaire?.let { questionnaire ->
-
-                QuestionScreen(
-                    questionnaire = questionnaire,
-                    onFinished = { score ->
-                        navController.navigate("result/$score")
-                    }
-                )
-            }
+            QuestionScreen(
+                viewModel = questionnaireViewModel,
+                onFinished = { score ->
+                    navController.navigate("result/$score")
+                }
+            )
         }
 
         composable("result/{score}") { backStackEntry ->
@@ -92,9 +80,11 @@ fun PatientKioskApp() {
 
             ResultScreen(
                 score = score,
+                maxScore = questionnaireViewModel.questionnaire?.maxScore ?: 0,
+                interpretation = questionnaireViewModel.getScoreInterpretation(score),
                 onHomeClick = {
-                    navController.navigate("welcome") {
-                        popUpTo("welcome") {
+                    navController.navigate("questionnaires") {
+                        popUpTo("questionnaires") {
                             inclusive = true
                         }
                     }

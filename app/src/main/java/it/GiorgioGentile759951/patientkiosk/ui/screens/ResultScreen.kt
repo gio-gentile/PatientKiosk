@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun ResultScreen(
     score: Int,
+    maxScore: Int,
+    interpretation: String,
     onHomeClick: () -> Unit
 ) {
 
@@ -38,9 +40,15 @@ fun ResultScreen(
         )
 
         Text(
-            text = score.toString(),
+            text = "$score / $maxScore",
             fontSize = 56.sp,
             modifier = Modifier.padding(top = 8.dp)
+        )
+
+        Text(
+            text = interpretation,
+            fontSize = 24.sp,
+            modifier = Modifier.padding(top = 24.dp)
         )
 
         Button(

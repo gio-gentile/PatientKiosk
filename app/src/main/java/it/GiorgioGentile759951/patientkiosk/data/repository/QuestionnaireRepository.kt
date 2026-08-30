@@ -26,8 +26,14 @@ class QuestionnaireRepository(
 
         val files = context.assets.list("questionnaires") ?: return emptyList()
 
-        return files.map { file ->
-            loadQuestionnaire(file)
-        }
+        return files.filter { it.endsWith(".json") }
+            .mapNotNull { file ->
+                try {
+                    loadQuestionnaire(file)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
+            }
     }
 }

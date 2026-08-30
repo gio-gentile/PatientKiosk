@@ -5,138 +5,160 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import it.GiorgioGentile759951.patientkiosk.data.model.Answer
-import it.GiorgioGentile759951.patientkiosk.data.model.Question
-import it.GiorgioGentile759951.patientkiosk.data.model.Questionnaire
+import it.GiorgioGentile759951.patientkiosk.viewmodels.QuestionnaireViewModel
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.LinearProgressIndicator
 
 @Composable
 fun QuestionScreen(
-    questionnaire: Questionnaire,
+    viewModel: QuestionnaireViewModel,
     onFinished: (Int) -> Unit
 ) {
-    var currentQuestionIndex by remember {
-        mutableStateOf(0)
-    }
+    val questionnaire = viewModel.questionnaire ?: return
 
-    val selectedAnswers = remember {
-        mutableStateListOf<Answer?>().apply {
-            repeat(questionnaire.questions.size) {
-                add(null)
-            }
-        }
-    }
-
+    val currentQuestionIndex = viewModel.currentQuestionIndex
     val currentQuestion = questionnaire.questions[currentQuestionIndex]
 
-    Column(
+    val progress = (currentQuestionIndex + 1).toFloat() / questionnaire.questions.size.toFloat()
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(48.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        contentAlignment = Alignment.Center
     ) {
-
-        Text(
-            text = questionnaire.name,
-            fontSize = 32.sp
-        )
-
-        Text(
-            text = "Domanda ${currentQuestionIndex + 1} di ${questionnaire.questions.size}",
-            fontSize = 20.sp,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-
-        Text(
-            text = currentQuestion.text,
-            fontSize = 26.sp,
-            modifier = Modifier
-                .padding(top = 40.dp)
-                .fillMaxWidth()
-        )
 
         Column(
             modifier = Modifier
-                .padding(top = 32.dp)
-                .fillMaxWidth(0.8f),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .fillMaxWidth()
+                .widthIn(max = 800.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            currentQuestion.answers.forEach { answer ->
+            Text(
+                text = questionnaire.name,
+                fontSize = 32.sp
+            )
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
 
-                    RadioButton(
-                        selected = selectedAnswers[currentQuestionIndex] == answer,
-                        onClick = {
-                            selectedAnswers[currentQuestionIndex] = answer
-                        }
-                    )
+            Text(
+                text = "Domanda ${currentQuestionIndex + 1} di ${questionnaire.questions.size}",
+                fontSize = 18.sp
+            )
 
-                    Text(
-                        text = answer.text,
-                        fontSize = 22.sp
-                    )
+            LinearProgressIndicator(
+                progress = {
+                    progress
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp)
+            )
+
+            Spacer(
+                modifier = Modifier.height(40.dp)
+            )
+
+            Text(
+                text = currentQuestion.text,
+                fontSize = 28.sp,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(
+                modifier = Modifier.height(32.dp)
+            )
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+
+                currentQuestion.answers.forEach { answer ->
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        RadioButton(
+                            selected =
+                                viewModel.selectedAnswers[currentQuestionIndex] == answer,
+
+                            onClick = {
+                                viewModel.selectAnswer(answer)
+                            }
+                        )
+
+                        Text(
+                            text = answer.text,
+                            fontSize = 22.sp
+                        )
+                    }
                 }
             }
-        }
 
-        Row(
-            modifier = Modifier.padding(top = 40.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+            Spacer(
+                modifier = Modifier.height(40.dp)
+            )
 
-            Button(
-                onClick = { currentQuestionIndex-- },
-                enabled = currentQuestionIndex > 0
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = "Indietro",
-                    fontSize = 20.sp
-                )
-            }
 
-            Button(
-                onClick = {
-                    if (currentQuestionIndex < questionnaire.questions.lastIndex) {
-                        currentQuestionIndex++
-                    } else {
-                        val totalScore = selectedAnswers
-                            .filterNotNull()
-                            .sumOf { it.score }
+                Button(
+                    onClick = {
+                        viewModel.previousQuestion()
+                    },
+                    enabled = currentQuestionIndex > 0
+                ) {
+                    Text(
+                        text = "Indietro",
+                        fontSize = 18.sp
+                    )
+                }
 
-                        onFinished(totalScore)
-                    }
-                },
-                enabled = selectedAnswers[currentQuestionIndex] != null
-            ) {
-                Text(
-                    if (currentQuestionIndex == questionnaire.questions.lastIndex) {
-                        "Termina"
-                    } else {
-                        "Avanti"
-                    }
-                )
+                Button(
+                    onClick = {
+
+                        val finished = viewModel.nextQuestion()
+
+                        if (finished) {
+                            onFinished(
+                                viewModel.calculateScore()
+                            )
+                        }
+                    },
+                    enabled =
+                        viewModel.selectedAnswers[currentQuestionIndex] != null
+                ) {
+
+                    Text(
+                        text =
+                            if (currentQuestionIndex == questionnaire.questions.lastIndex) {
+                                "Termina"
+                            } else {
+                                "Avanti"
+                            },
+                        fontSize = 18.sp
+                    )
+                }
             }
         }
     }
