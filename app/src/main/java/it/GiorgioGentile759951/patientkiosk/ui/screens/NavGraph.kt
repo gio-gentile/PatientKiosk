@@ -50,7 +50,6 @@ fun PatientKioskApp() {
 
         composable("questionnaires") {
             QuestionnaireSelectionScreen(
-                patientCode = questionnaireViewModel.patientCode,
                 questionnaires = questionnaires,
                 onQuestionnaireSelected = { questionnaire ->
                     val started = questionnaireViewModel.startQuestionnaire(questionnaire)
@@ -72,19 +71,39 @@ fun PatientKioskApp() {
         }
 
         composable("result/{score}") { backStackEntry ->
+
             val score = backStackEntry
                 .arguments
                 ?.getString("score")
                 ?.toIntOrNull()
                 ?: 0
 
+            val groupResults = questionnaireViewModel.getGroupResults()
+
             ResultScreen(
+                questionnaireName = questionnaireViewModel.questionnaire?.name ?: "",
+                patientCode = questionnaireViewModel.patientCode,
                 score = score,
-                maxScore = questionnaireViewModel.questionnaire?.maxScore ?: 0,
+                maxScore = questionnaireViewModel.getMaximumScore(),
                 interpretation = questionnaireViewModel.getScoreInterpretation(score),
-                onHomeClick = {
+                groupResults = groupResults,
+
+                onNewQuestionnaireClick = {
+
+                    questionnaireViewModel.resetQuestionnaire()
+
                     navController.navigate("questionnaires") {
                         popUpTo("questionnaires") {
+                            inclusive = false
+                        }
+                    }
+                },
+
+                onFinishClick = {
+                    questionnaireViewModel.resetSession()
+
+                    navController.navigate("welcome") {
+                        popUpTo("welcome") {
                             inclusive = true
                         }
                     }

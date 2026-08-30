@@ -11,51 +11,132 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.OutlinedButton
+import it.GiorgioGentile759951.patientkiosk.data.model.GroupResult
 
 @Composable
 fun ResultScreen(
+    questionnaireName: String,
+    patientCode: String,
     score: Int,
     maxScore: Int,
     interpretation: String,
-    onHomeClick: () -> Unit
+    groupResults: List<GroupResult>,
+    onNewQuestionnaireClick: () -> Unit,
+    onFinishClick: () -> Unit
 ) {
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(48.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        contentAlignment = Alignment.Center
     ) {
 
-        Text(
-            text = "Questionario completato",
-            fontSize = 36.sp
-        )
-
-        Text(
-            text = "Punteggio totale",
-            fontSize = 22.sp,
-            modifier = Modifier.padding(top = 32.dp)
-        )
-
-        Text(
-            text = "$score / $maxScore",
-            fontSize = 56.sp,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-
-        Text(
-            text = interpretation,
-            fontSize = 24.sp,
-            modifier = Modifier.padding(top = 24.dp)
-        )
-
-        Button(
-            onClick = onHomeClick,
-            modifier = Modifier.padding(top = 40.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .widthIn(max = 700.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Torna alla Home")
+
+            Text(
+                text = "Questionario completato",
+                fontSize = 36.sp
+            )
+
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            Text(
+                text = questionnaireName,
+                fontSize = 26.sp
+            )
+
+            Text(
+                text = "Paziente: $patientCode",
+                fontSize = 18.sp,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            Spacer(
+                modifier = Modifier.height(40.dp)
+            )
+
+            if (groupResults.isEmpty()) {
+                Text(
+                    text = "Punteggio",
+                    fontSize = 20.sp
+                )
+
+                Text(
+                    text = "$score / $maxScore",
+                    fontSize = 56.sp
+                )
+
+                Text(
+                    text = interpretation,
+                    fontSize = 24.sp
+                )
+
+            } else {
+
+                groupResults.forEach { result ->
+
+                    Text(
+                        text = result.name,
+                        fontSize = 24.sp
+                    )
+
+                    Text(
+                        text = "${result.score} / ${result.maxScore}",
+                        fontSize = 42.sp
+                    )
+
+                    Text(
+                        text = result.interpretation,
+                        fontSize = 20.sp
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(24.dp)
+                    )
+                }
+            }
+
+            Spacer(
+                modifier = Modifier.height(48.dp)
+            )
+
+            Button(
+                onClick = onNewQuestionnaireClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Compila un altro questionario",
+                    fontSize = 18.sp
+                )
+            }
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            OutlinedButton(
+                onClick = onFinishClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Termina sessione",
+                    fontSize = 18.sp
+                )
+            }
         }
     }
 }

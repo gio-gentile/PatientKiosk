@@ -1,70 +1,78 @@
 {
   "id": "who5",
   "name": "WHO-5",
-  "description": "Well-Being Index",
+  "description": "WHO-5 Well-Being Index",
+
   "questions": [
     {
-      "text": "Quanto la malattia della pelle ha influenzato la sua vita quotidiana?",
+      "text": "Nelle ultime due settimane mi sono sentito/a allegro/a e di buon umore",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Sempre", "score": 5 },
+        { "text": "La maggior parte del tempo", "score": 4 },
+        { "text": "Più della metà del tempo", "score": 3 },
+        { "text": "Meno della metà del tempo", "score": 2 },
+        { "text": "Qualche volta", "score": 1 },
+        { "text": "Mai", "score": 0 }
       ]
     },
     {
-      "text": "Quanto ha provato imbarazzo o disagio a causa della pelle?",
+      "text": "Nelle ultime due settimane mi sono sentito/a calmo/a e rilassato/a",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Sempre", "score": 5 },
+        { "text": "La maggior parte del tempo", "score": 4 },
+        { "text": "Più della metà del tempo", "score": 3 },
+        { "text": "Meno della metà del tempo", "score": 2 },
+        { "text": "Qualche volta", "score": 1 },
+        { "text": "Mai", "score": 0 }
       ]
     },
     {
-      "text": "Quanto la pelle ha interferito con le attività quotidiane?",
+      "text": "Nelle ultime due settimane mi sono sentito/a attivo/a ed energico/a",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Sempre", "score": 5 },
+        { "text": "La maggior parte del tempo", "score": 4 },
+        { "text": "Più della metà del tempo", "score": 3 },
+        { "text": "Meno della metà del tempo", "score": 2 },
+        { "text": "Qualche volta", "score": 1 },
+        { "text": "Mai", "score": 0 }
       ]
+    },
+    {
+      "text": "Nelle ultime due settimane mi sono svegliato/a sentendomi fresco/a e riposato/a",
+      "answers": [
+        { "text": "Sempre", "score": 5 },
+        { "text": "La maggior parte del tempo", "score": 4 },
+        { "text": "Più della metà del tempo", "score": 3 },
+        { "text": "Meno della metà del tempo", "score": 2 },
+        { "text": "Qualche volta", "score": 1 },
+        { "text": "Mai", "score": 0 }
+      ]
+    },
+    {
+      "text": "La mia vita di tutti i giorni è stata piena di cose che mi interessano",
+      "answers": [
+        { "text": "Sempre", "score": 5 },
+        { "text": "La maggior parte del tempo", "score": 4 },
+        { "text": "Più della metà del tempo", "score": 3 },
+        { "text": "Meno della metà del tempo", "score": 2 },
+        { "text": "Qualche volta", "score": 1 },
+        { "text": "Mai", "score": 0 }
+      ]
+    }
+  ],
+
+  "maxScore": 25,
+
+  "scoreRanges": [
+    {
+      "min": 0,
+      "max": 12,
+      "label": "Benessere psicologico ridotto: può essere indicato un ulteriore approfondimento. Si consiglia di eseguire un test sulla depressione"
+    },
+    {
+      "min": 13,
+      "max": 25,
+      "label": "Punteggio sopra la soglia indicativa"
     }
   ]
 }

@@ -24,16 +24,70 @@ class QuestionnaireRepository(
 
     fun getAvailableQuestionnaires(): List<Questionnaire> {
 
-        val files = context.assets.list("questionnaires") ?: return emptyList()
+        val files = context.assets.list("questionnaires")
+            ?: return emptyList()
 
-        return files.filter { it.endsWith(".json") }
+        return files
+            .filter { it.endsWith(".json") }
             .mapNotNull { file ->
+
                 try {
-                    loadQuestionnaire(file)
+
+                    val questionnaire = loadQuestionnaire(file)
+
+                    if (isValidQuestionnaire(questionnaire)) {
+                        questionnaire
+                    } else {
+                        null
+                    }
+
                 } catch (e: Exception) {
+
                     e.printStackTrace()
                     null
                 }
             }
+            .sortedBy { it.name }
+    }
+
+    private fun isValidQuestionnaire(
+        questionnaire: Questionnaire
+    ): Boolean {
+
+        if (questionnaire.id.isBlank()) {
+            return false
+        }
+
+        if (questionnaire.name.isBlank()) {
+            return false
+        }
+
+        if (questionnaire.questions.isEmpty()) {
+            return false
+        }
+
+        for (question in questionnaire.questions) {
+
+            if (question.text.isBlank()) {
+                return false
+            }
+
+            if (question.answers.isEmpty()) {
+                return false
+            }
+
+            for (answer in question.answers) {
+
+                if (answer.text.isBlank()) {
+                    return false
+                }
+
+                if (answer.score < 0) {
+                    return false
+                }
+            }
+        }
+
+        return true
     }
 }

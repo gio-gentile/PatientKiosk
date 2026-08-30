@@ -2,69 +2,204 @@
   "id": "hads",
   "name": "HADS",
   "description": "Hospital Anxiety and Depression Scale",
+  "maxScore": 42,
+  "scoreMultiplier": 1,
+
+  "scoreRanges": [],
+
   "questions": [
     {
-      "text": "Quanto la malattia della pelle ha influenzato la sua vita quotidiana?",
+      "text": "Mi sento teso/a 'come una corda'",
+      "group": "anxiety",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "La maggior parte del tempo", "score": 3 },
+        { "text": "Molte volte", "score": 2 },
+        { "text": "Qualche volta o occasionalmente", "score": 1 },
+        { "text": "Mai", "score": 0 }
       ]
     },
+
     {
-      "text": "Quanto ha provato imbarazzo o disagio a causa della pelle?",
+      "text": "Riesco ancora a godere delle cose che mi sono sempre piaciute",
+      "group": "depression",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Sempre", "score": 0 },
+        { "text": "Non sempre", "score": 1 },
+        { "text": "Solo alcune volte", "score": 2 },
+        { "text": "Mai", "score": 3 }
       ]
     },
+
     {
-      "text": "Quanto la pelle ha interferito con le attività quotidiane?",
+      "text": "Sono spaventato/a dal fatto che mi possa accadere qualcosa di terribile",
+      "group": "anxiety",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Sempre, e ciò mi preoccupa moltissimo", "score": 3 },
+        { "text": "Spesso, e ciò mi preoccupa abbastanza", "score": 2 },
+        { "text": "Talvolta, ma ciò non mi preoccupa", "score": 1 },
+        { "text": "Per nulla", "score": 0 }
       ]
+    },
+
+    {
+      "text": "Riesco ancora a ridere e a vedere il lato divertente delle cose",
+      "group": "depression",
+      "answers": [
+        { "text": "Come sempre", "score": 0 },
+        { "text": "Ora non molto spesso", "score": 1 },
+        { "text": "Ora raramente", "score": 2 },
+        { "text": "Mai", "score": 3 }
+      ]
+    },
+
+    {
+      "text": "Ho la mente piena di preoccupazioni",
+      "group": "anxiety",
+      "answers": [
+        { "text": "La maggior parte del tempo", "score": 3 },
+        { "text": "Molte volte", "score": 2 },
+        { "text": "Talvolta, ma non spesso", "score": 1 },
+        { "text": "Solo occasionalmente", "score": 0 }
+      ]
+    },
+
+    {
+      "text": "Mi sento allegro/a",
+      "group": "depression",
+      "answers": [
+        { "text": "Per niente", "score": 3 },
+        { "text": "Un po’", "score": 2 },
+        { "text": "Abbastanza", "score": 1 },
+        { "text": "La maggior parte del tempo", "score": 0 }
+      ]
+    },
+
+    {
+      "text": "Riesco a stare tranquillo/a e a sentirmi rilassato/a",
+      "group": "anxiety",
+      "answers": [
+        { "text": "Sempre", "score": 0 },
+        { "text": "Spesso", "score": 1 },
+        { "text": "Talvolta", "score": 2 },
+        { "text": "Per nulla", "score": 3 }
+      ]
+    },
+
+    {
+      "text": "Mi sento fiacco/a",
+      "group": "depression",
+      "answers": [
+        { "text": "Quasi sempre", "score": 3 },
+        { "text": "Molto spesso", "score": 2 },
+        { "text": "Talvolta", "score": 1 },
+        { "text": "Per nulla", "score": 0 }
+      ]
+    },
+
+    {
+      "text": "Ho la sensazione fastidiosa di crampi allo stomaco",
+      "group": "anxiety",
+      "answers": [
+        { "text": "Per niente", "score": 0 },
+        { "text": "Occasionalmente", "score": 1 },
+        { "text": "Abbastanza spesso", "score": 2 },
+        { "text": "Molto spesso", "score": 3 }
+      ]
+    },
+
+    {
+      "text": "Ho perso interesse riguardo al mio aspetto fisico",
+      "group": "depression",
+      "answers": [
+        { "text": "Decisamente o molto", "score": 3 },
+        { "text": "Abbastanza, ma non vi do l’importanza che dovrei", "score": 2 },
+        { "text": "Un po’ e non vi do molta importanza", "score": 1 },
+        { "text": "Per nulla o non ho affatto perso l’interesse", "score": 0 }
+      ]
+    },
+
+    {
+      "text": "Mi sento irrequieto/a come se fossi costretto a muovermi",
+      "group": "anxiety",
+      "answers": [
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Abbastanza", "score": 2 },
+        { "text": "Un po’", "score": 1 },
+        { "text": "Per niente", "score": 0 }
+      ]
+    },
+
+    {
+      "text": "Guardo con gioia a ciò che mi può capitare",
+      "group": "depression",
+      "answers": [
+        { "text": "Come al solito", "score": 0 },
+        { "text": "Un po’ meno del solito", "score": 1 },
+        { "text": "Molto meno del solito", "score": 2 },
+        { "text": "Per nulla", "score": 3 }
+      ]
+    },
+
+    {
+      "text": "Ho improvvise sensazioni di panico",
+      "group": "anxiety",
+      "answers": [
+        { "text": "Molto spesso", "score": 3 },
+        { "text": "Abbastanza frequentemente", "score": 2 },
+        { "text": "Raramente", "score": 1 },
+        { "text": "Mai", "score": 0 }
+      ]
+    },
+
+    {
+      "text": "Riesco a godere della lettura (libro, giornali) o dell’ascolto di un programma alla radio o alla televisione",
+      "group": "depression",
+      "answers": [
+        { "text": "Spesso", "score": 0 },
+        { "text": "Talvolta", "score": 1 },
+        { "text": "Raramente", "score": 2 },
+        { "text": "Molto raramente o mai", "score": 3 }
+      ]
+    }
+  ],
+
+  "groupScoreRanges": [
+    {
+      "group": "anxiety",
+      "min": 0,
+      "max": 7,
+      "label": "Nella norma"
+    },
+    {
+      "group": "anxiety",
+      "min": 8,
+      "max": 10,
+      "label": "Caso dubbio"
+    },
+    {
+      "group": "anxiety",
+      "min": 11,
+      "max": 21,
+      "label": "Caso probabile"
+    },
+
+    {
+      "group": "depression",
+      "min": 0,
+      "max": 7,
+      "label": "Nella norma"
+    },
+    {
+      "group": "depression",
+      "min": 8,
+      "max": 10,
+      "label": "Caso dubbio"
+    },
+    {
+      "group": "depression",
+      "min": 11,
+      "max": 21,
+      "label": "Caso probabile"
     }
   ]
 }

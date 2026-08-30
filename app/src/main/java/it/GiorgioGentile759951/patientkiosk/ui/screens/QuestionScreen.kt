@@ -1,5 +1,7 @@
 package it.GiorgioGentile759951.patientkiosk.ui.screens
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +21,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 
 @Composable
 fun QuestionScreen(
@@ -32,6 +41,12 @@ fun QuestionScreen(
     val currentQuestion = questionnaire.questions[currentQuestionIndex]
 
     val progress = (currentQuestionIndex + 1).toFloat() / questionnaire.questions.size.toFloat()
+
+    BackHandler {
+        if (viewModel.currentQuestionIndex > 0) {
+            viewModel.previousQuestion()
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -84,31 +99,59 @@ fun QuestionScreen(
                 modifier = Modifier.height(32.dp)
             )
 
-            Column(
-                modifier = Modifier.fillMaxWidth(),
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+                items(currentQuestion.answers) { answer ->
 
-                currentQuestion.answers.forEach { answer ->
+                    val isSelected = viewModel.selectedAnswers[currentQuestionIndex] == answer
 
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                viewModel.selectAnswer(answer)
+                            },
+                        shape = RoundedCornerShape(16.dp),
+                        border = if (isSelected) {
+                            BorderStroke(
+                                width = 2.dp,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        } else {
+                            null
+                        },
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 2.dp
+                        )
                     ) {
 
-                        RadioButton(
-                            selected =
-                                viewModel.selectedAnswers[currentQuestionIndex] == answer,
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 20.dp,
+                                    vertical = 16.dp
+                                ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
 
-                            onClick = {
-                                viewModel.selectAnswer(answer)
-                            }
-                        )
+                            RadioButton(
+                                selected = isSelected,
+                                onClick = {
+                                    viewModel.selectAnswer(answer)
+                                }
+                            )
 
-                        Text(
-                            text = answer.text,
-                            fontSize = 22.sp
-                        )
+                            Text(
+                                text = answer.text,
+                                fontSize = 22.sp,
+                                modifier = Modifier.padding(start = 12.dp)
+                            )
+                        }
                     }
                 }
             }
@@ -136,7 +179,6 @@ fun QuestionScreen(
 
                 Button(
                     onClick = {
-
                         val finished = viewModel.nextQuestion()
 
                         if (finished) {
@@ -145,8 +187,7 @@ fun QuestionScreen(
                             )
                         }
                     },
-                    enabled =
-                        viewModel.selectedAnswers[currentQuestionIndex] != null
+                    enabled = viewModel.hasAnsweredCurrentQuestion()
                 ) {
 
                     Text(

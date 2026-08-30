@@ -9,5 +9,6 @@ data class Questionnaire(
     val description: String,
     val questions: List<Question>,
     val maxScore: Int,
-    val scoreRanges: List<ScoreRange>
+    val scoreRanges: List<ScoreRange>,
+    val groupScoreRanges: List<GroupScoreRange> = emptyList()
 )

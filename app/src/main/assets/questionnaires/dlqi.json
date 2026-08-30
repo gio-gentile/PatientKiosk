@@ -4,66 +4,101 @@
   "description": "Dermatology Life Quality Index",
   "questions": [
     {
-      "text": "Quanto la malattia della pelle ha influenzato la sua vita quotidiana?",
+      "text": "Negli ultimi 7 giorni, ha avuto prurito, dolore, o sensazioni di bruciore alla pelle?",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 }
       ]
     },
     {
-      "text": "Quanto ha provato imbarazzo o disagio a causa della pelle?",
+      "text": "Negli ultimi 7 giorni, si è sentito/a imbarazzato/a o a disagio a causa dei suoi problemi alla pelle?",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 }
       ]
     },
     {
-      "text": "Quanto la pelle ha interferito con le attività quotidiane?",
+      "text": "Negli ultimi 7 giorni, i suoi problemi alla pelle le hanno creato fastidi per fare la spesa, occuparsi della casa (o del giardino)?",
       "answers": [
-        {
-          "text": "Per niente",
-          "score": 0
-        },
-        {
-          "text": "Poco",
-          "score": 1
-        },
-        {
-          "text": "Abbastanza",
-          "score": 2
-        },
-        {
-          "text": "Moltissimo",
-          "score": 3
-        }
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Negli ultimi 7 giorni, i suoi problemi alla pelle hanno influenzato la scelta dei vestiti da indossare?",
+      "answers": [
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Negli ultimi 7 giorni, i suoi problemi alla pelle hanno influito sulle sue attività con gli altri, o di tempo libero?",
+      "answers": [
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Negli ultimi 7 giorni, i suoi problemi alla pelle le hanno reso difficile praticare sport?",
+      "answers": [
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Negli ultimi 7 giorni, i suoi problemi alla pelle le hanno impedito di lavorare o studiare?",
+      "answers": [
+        { "text": "Sì", "score": 3 },
+        { "text": "No, ma mi hanno creato molti problemi", "score": 2 },
+        { "text": "No, ma mi hanno creato qualche problema", "score": 1 },
+        { "text": "No, non mi hanno creato problemi", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Negli ultimi 7 giorni, i suoi problemi alla pelle le hanno creato difficoltà con il partner, con amici stretti o parenti?",
+      "answers": [
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Negli ultimi 7 giorni, i suoi problemi alla pelle le hanno creato difficoltà di carattere sessuale?",
+      "answers": [
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Negli ultimi 7 giorni, la cura per la pelle le ha dato problemi, per esempio portandole via del tempo o sporcando in casa?",
+      "answers": [
+        { "text": "Moltissimo", "score": 3 },
+        { "text": "Molto", "score": 2 },
+        { "text": "Un po'", "score": 1 },
+        { "text": "Per niente", "score": 0 },
+        { "text": "Non riguarda il mio caso", "score": 0 }
       ]
     }
   ],
