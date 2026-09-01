@@ -1,13 +1,26 @@
-package it.GiorgioGentile759951.patientkiosk.ui.screens
+package it.GiorgioGentile759951.patientkiosk.navigation
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import it.GiorgioGentile759951.patientkiosk.ui.screens.PatientIdentificationScreen
+import it.GiorgioGentile759951.patientkiosk.ui.screens.QuestionScreen
+import it.GiorgioGentile759951.patientkiosk.ui.screens.QuestionnaireSelectionScreen
+import it.GiorgioGentile759951.patientkiosk.ui.screens.ResultScreen
+import it.GiorgioGentile759951.patientkiosk.ui.screens.WelcomeScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import it.GiorgioGentile759951.patientkiosk.R
 import it.GiorgioGentile759951.patientkiosk.data.repository.QuestionnaireRepository
+import it.GiorgioGentile759951.patientkiosk.ui.screens.AppTopBar
+import it.GiorgioGentile759951.patientkiosk.ui.screens.InfoScreen
 import it.GiorgioGentile759951.patientkiosk.viewmodels.QuestionnaireViewModel
 
 @Composable
@@ -49,16 +62,31 @@ fun PatientKioskApp() {
         }
 
         composable("questionnaires") {
-            QuestionnaireSelectionScreen(
-                questionnaires = questionnaires,
-                onQuestionnaireSelected = { questionnaire ->
-                    val started = questionnaireViewModel.startQuestionnaire(questionnaire)
 
-                    if (started) {
-                        navController.navigate("question")
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+
+                AppTopBar(
+                    title = stringResource(R.string.app_name),
+                    onInfoClick = {
+                        navController.navigate("info")
                     }
-                }
-            )
+                )
+
+                QuestionnaireSelectionScreen(
+                    questionnaires = questionnaires,
+                    onQuestionnaireSelected = { questionnaire ->
+
+                        val started =
+                            questionnaireViewModel.startQuestionnaire(questionnaire)
+
+                        if (started) {
+                            navController.navigate("question")
+                        }
+                    }
+                )
+            }
         }
 
         composable("question") {
@@ -66,6 +94,15 @@ fun PatientKioskApp() {
                 viewModel = questionnaireViewModel,
                 onFinished = { score ->
                     navController.navigate("result/$score")
+                },
+                onExitQuestionnaire = {
+                    questionnaireViewModel.resetQuestionnaire()
+
+                    navController.navigate("questionnaires"){
+                        popUpTo("questionnaires"){
+                            inclusive = false
+                        }
+                    }
                 }
             )
         }
@@ -107,6 +144,14 @@ fun PatientKioskApp() {
                             inclusive = true
                         }
                     }
+                }
+            )
+        }
+
+        composable("info") {
+            InfoScreen(
+                onBackClick = {
+                    navController.popBackStack()
                 }
             )
         }

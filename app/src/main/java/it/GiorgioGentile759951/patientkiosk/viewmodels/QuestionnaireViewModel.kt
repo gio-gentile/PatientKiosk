@@ -11,6 +11,7 @@ import it.GiorgioGentile759951.patientkiosk.data.model.Questionnaire
 
 class QuestionnaireViewModel : ViewModel() {
 
+    // Variabili di stato
     var questionnaire by mutableStateOf<Questionnaire?>(null)
         private set
 
@@ -22,14 +23,22 @@ class QuestionnaireViewModel : ViewModel() {
     var patientCode by mutableStateOf("")
         private set
 
+    var maxReachedQuestionIndex by mutableStateOf(0)
+        private set
+
+    // Sessione
+    fun updatePatientCode(code: String) {
+        patientCode = code
+    }
+
     fun startQuestionnaire(questionnaire: Questionnaire): Boolean {
-        if(questionnaire.questions.isEmpty())
-        {
+        if (questionnaire.questions.isEmpty()) {
             return false
         }
 
         this.questionnaire = questionnaire
         currentQuestionIndex = 0
+        maxReachedQuestionIndex = 0
 
         selectedAnswers.clear()
 
@@ -40,15 +49,30 @@ class QuestionnaireViewModel : ViewModel() {
         return true;
     }
 
-    fun selectAnswer(answer: Answer) {
-        selectedAnswers[currentQuestionIndex] = answer
+    fun resetQuestionnaire() {
+        questionnaire = null
+        currentQuestionIndex = 0
+        selectedAnswers.clear()
     }
 
+    fun resetSession() {
+        patientCode = ""
+        questionnaire = null
+        currentQuestionIndex = 0
+        selectedAnswers.clear()
+    }
+
+    // Navigazione
     fun nextQuestion(): Boolean {
         val questionnaire = questionnaire ?: return false
 
         return if (currentQuestionIndex < questionnaire.questions.lastIndex) {
             currentQuestionIndex++
+
+            if (currentQuestionIndex > maxReachedQuestionIndex) {
+                maxReachedQuestionIndex = currentQuestionIndex
+            }
+
             false
         } else {
             true
@@ -61,26 +85,47 @@ class QuestionnaireViewModel : ViewModel() {
         }
     }
 
+    fun goToQuestion(index: Int) {
+        val questionnaire = questionnaire ?: return
+
+        if (index in questionnaire.questions.indices && index <= maxReachedQuestionIndex) {
+            currentQuestionIndex = index
+        }
+    }
+
+    // Risposte
+    fun selectAnswer(answer: Answer) {
+        selectedAnswers[currentQuestionIndex] = answer
+    }
+
+    fun hasAnsweredCurrentQuestion(): Boolean {
+        return selectedAnswers.getOrNull(currentQuestionIndex) != null
+    }
+
+    fun areAllQuestionsAnswered(): Boolean {
+        return selectedAnswers.isNotEmpty() &&
+                selectedAnswers.all { it != null }
+    }
+
+    fun getFirstUnansweredQuestionIndex(): Int? {
+        val index = selectedAnswers.indexOfFirst { it == null }
+
+        return if (index == -1) {
+            null
+        } else {
+            index
+        }
+    }
+
+    fun getAnsweredQuestionsCount(): Int {
+        return selectedAnswers.count { it != null }
+    }
+
+    // Punteggio
     fun calculateScore(): Int {
         return selectedAnswers
             .filterNotNull()
             .sumOf { it.score }
-    }
-
-    fun getScoreInterpretation(score: Int): String {
-
-        val questionnaire = questionnaire ?: return "Interpretazione non disponibile"
-
-        return questionnaire.scoreRanges
-            .firstOrNull { range ->
-                score in range.min..range.max
-            }
-            ?.label
-            ?: "Interpretazione non disponibile"
-    }
-
-    fun updatePatientCode(code: String) {
-        patientCode = code
     }
 
     fun getMaximumScore(): Int {
@@ -93,21 +138,16 @@ class QuestionnaireViewModel : ViewModel() {
         }
     }
 
-    fun resetSession() {
-        patientCode = ""
-        questionnaire = null
-        currentQuestionIndex = 0
-        selectedAnswers.clear()
-    }
+    fun getScoreInterpretation(score: Int): String {
 
-    fun resetQuestionnaire() {
-        questionnaire = null
-        currentQuestionIndex = 0
-        selectedAnswers.clear()
-    }
+        val questionnaire = questionnaire ?: return ""
 
-    fun hasAnsweredCurrentQuestion(): Boolean {
-        return selectedAnswers.getOrNull(currentQuestionIndex) != null
+        return questionnaire.scoreRanges
+            .firstOrNull { range ->
+                score in range.min..range.max
+            }
+            ?.label
+            ?: ""
     }
 
     fun calculateGroupScores(): Map<String, Int> {
@@ -130,7 +170,7 @@ class QuestionnaireViewModel : ViewModel() {
         score: Int
     ): String {
 
-        val questionnaire = questionnaire ?: return "Interpretazione non disponibile"
+        val questionnaire = questionnaire ?: return ""
 
         return questionnaire.groupScoreRanges
             .firstOrNull { range ->
@@ -138,7 +178,7 @@ class QuestionnaireViewModel : ViewModel() {
                         score in range.min..range.max
             }
             ?.label
-            ?: "Interpretazione non disponibile"
+            ?: ""
     }
 
     fun getGroupResults(): List<GroupResult> {

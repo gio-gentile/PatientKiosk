@@ -1,0 +1,95 @@
+{
+  "id": "gad7",
+  "name": "GAD-7",
+  "description": "Generalized Anxiety Disorder 7-item scale",
+  "maxScore": 21,
+  "scoreMultiplier": 1,
+  "groupScoreRanges": [],
+  "scoreRanges": [
+    {
+      "min": 0,
+      "max": 4,
+      "label": "Sintomi d'ansia minimi"
+    },
+    {
+      "min": 5,
+      "max": 9,
+      "label": "Sintomi d'ansia lievi"
+    },
+    {
+      "min": 10,
+      "max": 14,
+      "label": "Sintomi d'ansia moderati"
+    },
+    {
+      "min": 15,
+      "max": 21,
+      "label": "Sintomi d'ansia severi"
+    }
+  ],
+  "questions": [
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza si è sentito/a nervoso/a, ansioso/a o teso/a?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza non è riuscito/a a smettere di preoccuparsi o a controllare le preoccupazioni?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza si è preoccupato/a eccessivamente per diverse cose?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza ha avuto difficoltà a rilassarsi?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza è stato/a così irrequieto/a da avere difficoltà a stare fermo/a?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza si è irritato/a o infastidito/a facilmente?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza ha avuto paura che potesse accadere qualcosa di terribile?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    }
+  ]
+}

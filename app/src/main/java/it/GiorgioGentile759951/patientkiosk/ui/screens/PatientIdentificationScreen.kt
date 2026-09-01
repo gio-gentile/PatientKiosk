@@ -1,12 +1,20 @@
 package it.GiorgioGentile759951.patientkiosk.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,60 +25,86 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import it.GiorgioGentile759951.patientkiosk.R
 
 @Composable
 fun PatientIdentificationScreen(
     onContinue: (String) -> Unit
 ) {
-
     var patientCode by remember {
         mutableStateOf("")
     }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(48.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .background(MaterialTheme.colorScheme.background)
+            .padding(dimensionResource(R.dimen.screen_padding_s)),
+        contentAlignment = Alignment.Center
     ) {
 
-        Text(
-            text = "Identificazione paziente",
-            fontSize = 36.sp
-        )
-
-        Text(
-            text = "Inserisci il codice paziente",
-            fontSize = 20.sp,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-
-        OutlinedTextField(
-            value = patientCode,
-            onValueChange = {
-                patientCode = it
-            },
-            label = {
-                Text("Codice paziente")
-            },
-            singleLine = true,
+        Column(
             modifier = Modifier
-                .padding(top = 32.dp)
-                .fillMaxWidth(0.5f)
-        )
-
-        Button(
-            onClick = {
-                onContinue(patientCode.trim())
-            },
-            enabled = patientCode.isNotBlank(),
-            modifier = Modifier.padding(top = 32.dp)
+                .fillMaxWidth()
+                .widthIn(max = dimensionResource(R.dimen.patient_form_max_width)),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
             Text(
-                text = "Continua",
-                fontSize = 20.sp
+                text = stringResource(R.string.patient_id_text),
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onBackground
             )
+
+            Spacer(
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_md))
+            )
+
+            Text(
+                text = stringResource(R.string.patient_code_text),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Spacer(
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_xl))
+            )
+
+            OutlinedTextField(
+                value = patientCode,
+                onValueChange = {
+                    patientCode = it
+                },
+                label = {
+                    Text(stringResource(R.string.patient_code_placeholder))
+                },
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.surface,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surface
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_xl))
+            )
+
+            Button(
+                onClick = {
+                    onContinue(patientCode.trim())
+                },
+                enabled = patientCode.isNotBlank(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(
+                        min = dimensionResource(R.dimen.button_min_height)
+                    )
+            ) {
+                Text(stringResource(R.string.continue_text))
+            }
         }
     }
 }

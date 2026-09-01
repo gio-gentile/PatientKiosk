@@ -1,0 +1,118 @@
+{
+  "id": "phq9",
+  "name": "PHQ-9",
+  "description": "Patient Health Questionnaire-9",
+  "maxScore": 27,
+  "scoreMultiplier": 1,
+  "groupScoreRanges": [],
+  "scoreRanges": [
+    {
+      "min": 0,
+      "max": 4,
+      "label": "Sintomi depressivi minimi"
+    },
+    {
+      "min": 5,
+      "max": 9,
+      "label": "Sintomi depressivi lievi"
+    },
+    {
+      "min": 10,
+      "max": 14,
+      "label": "Sintomi depressivi moderati"
+    },
+    {
+      "min": 15,
+      "max": 19,
+      "label": "Sintomi depressivi moderatamente severi"
+    },
+    {
+      "min": 20,
+      "max": 27,
+      "label": "Sintomi depressivi severi"
+    }
+  ],
+  "questions": [
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza ha avuto poco interesse o piacere nel fare le cose?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza si è sentito/a giù, depresso/a o senza speranza?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza ha avuto difficoltà ad addormentarsi, a dormire oppure ha dormito troppo?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza si è sentito/a stanco/a o con poca energia?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza ha avuto poco appetito oppure ha mangiato troppo?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza si è sentito/a male con se stesso/a, come se fosse un fallimento o avesse deluso se stesso/a o la sua famiglia?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza ha avuto difficoltà a concentrarsi, per esempio leggendo il giornale o guardando la televisione?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza si è mosso/a o ha parlato così lentamente che gli altri avrebbero potuto notarlo, oppure al contrario è stato/a così agitato/a da muoversi molto più del solito?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    },
+    {
+      "text": "Nelle ultime due settimane, con quale frequenza ha pensato che sarebbe meglio essere morto/a o di farsi del male in qualche modo?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Alcuni giorni", "score": 1 },
+        { "text": "Più della metà dei giorni", "score": 2 },
+        { "text": "Quasi ogni giorno", "score": 3 }
+      ]
+    }
+  ]
+}

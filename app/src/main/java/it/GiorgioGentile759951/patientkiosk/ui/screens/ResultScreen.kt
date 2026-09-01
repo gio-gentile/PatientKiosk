@@ -1,5 +1,6 @@
 package it.GiorgioGentile759951.patientkiosk.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,8 +16,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import it.GiorgioGentile759951.patientkiosk.R
 import it.GiorgioGentile759951.patientkiosk.data.model.GroupResult
 
 @Composable
@@ -34,56 +41,68 @@ fun ResultScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(48.dp),
+            .background(MaterialTheme.colorScheme.background)
+            .padding(dimensionResource(R.dimen.screen_padding_s)),
         contentAlignment = Alignment.Center
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .widthIn(max = 700.dp),
+                .widthIn(max = dimensionResource(R.dimen.content_max_width3)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Text(
-                text = "Questionario completato",
-                fontSize = 36.sp
+                text = stringResource(R.string.questionnaire_completed),
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Spacer(
-                modifier = Modifier.height(16.dp)
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_md))
             )
 
             Text(
                 text = questionnaireName,
-                fontSize = 26.sp
-            )
-
-            Text(
-                text = "Paziente: $patientCode",
-                fontSize = 18.sp,
-                modifier = Modifier.padding(top = 8.dp)
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Spacer(
-                modifier = Modifier.height(40.dp)
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_sm))
+            )
+
+            Text(
+                text = stringResource(R.string.patient_code, patientCode),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Spacer(
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_xxl))
             )
 
             if (groupResults.isEmpty()) {
                 Text(
-                    text = "Punteggio",
-                    fontSize = 20.sp
+                    text = stringResource(R.string.score),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(
                     text = "$score / $maxScore",
-                    fontSize = 56.sp
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.onBackground
                 )
 
-                Text(
-                    text = interpretation,
-                    fontSize = 24.sp
-                )
+                if (interpretation.isNotBlank()) {
+                    Text(
+                        text = interpretation,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
 
             } else {
 
@@ -91,50 +110,64 @@ fun ResultScreen(
 
                     Text(
                         text = result.name,
-                        fontSize = 24.sp
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
 
                     Text(
                         text = "${result.score} / ${result.maxScore}",
-                        fontSize = 42.sp
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
 
-                    Text(
-                        text = result.interpretation,
-                        fontSize = 20.sp
-                    )
+                    if (result.interpretation.isNotBlank()) {
+                        Text(
+                            text = result.interpretation,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
 
                     Spacer(
-                        modifier = Modifier.height(24.dp)
+                        modifier = Modifier.height(dimensionResource(R.dimen.spacing_lg))
                     )
                 }
             }
 
             Spacer(
-                modifier = Modifier.height(48.dp)
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_xl))
             )
 
             Button(
                 onClick = onNewQuestionnaireClick,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(
+                        min = dimensionResource(R.dimen.button_min_height)
+                    )
             ) {
                 Text(
-                    text = "Compila un altro questionario",
-                    fontSize = 18.sp
+                    text = stringResource(R.string.next_questionnaire)
                 )
             }
 
             Spacer(
-                modifier = Modifier.height(12.dp)
+                modifier = Modifier.height(dimensionResource(R.dimen.spacing_sm))
             )
 
             OutlinedButton(
                 onClick = onFinishClick,
-                modifier = Modifier.fillMaxWidth()
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(
+                        min = dimensionResource(R.dimen.button_min_height)
+                    )
             ) {
                 Text(
-                    text = "Termina sessione",
-                    fontSize = 18.sp
+                    text = stringResource(R.string.end_session_text)
                 )
             }
         }

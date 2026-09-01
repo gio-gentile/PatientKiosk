@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="patient_primary">#4F46E5</color>
+    <color name="patient_background">#F8FAFC</color>
+
+    <color name="sidebar_background">#F1F5F9</color>
+
+    <color name="question_selected_background">#E0E7FF</color>
+    <color name="question_answered_background">#DCFCE7</color>
+    <color name="question_unanswered_background">#FFFFFF</color>
+
+    <color name="question_selected_border">#4F46E5</color>
+
 </resources>

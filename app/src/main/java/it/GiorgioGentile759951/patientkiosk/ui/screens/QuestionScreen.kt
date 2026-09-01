@@ -27,13 +27,29 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import it.GiorgioGentile759951.patientkiosk.R
 
 @Composable
 fun QuestionScreen(
     viewModel: QuestionnaireViewModel,
-    onFinished: (Int) -> Unit
+    onFinished: (Int) -> Unit,
+    onExitQuestionnaire: () -> Unit
 ) {
     val questionnaire = viewModel.questionnaire ?: return
 
@@ -42,165 +58,264 @@ fun QuestionScreen(
 
     val progress = (currentQuestionIndex + 1).toFloat() / questionnaire.questions.size.toFloat()
 
-    BackHandler {
-        if (viewModel.currentQuestionIndex > 0) {
-            viewModel.previousQuestion()
+    var showExitDialog by remember {
+        mutableStateOf(false)
+    }
+
+    var showIncompleteMessage by remember {
+        mutableStateOf(false)
+    }
+
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+
+    val incompleteMessage = stringResource(
+        R.string.incomplete_questionnaire_message,
+        viewModel.selectedAnswers.count { it == null }
+    )
+
+    LaunchedEffect(showIncompleteMessage) {
+        if (showIncompleteMessage) {
+
+            snackbarHostState.showSnackbar(
+                message = incompleteMessage
+            )
+
+            showIncompleteMessage = false
         }
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(48.dp),
-        contentAlignment = Alignment.Center
+    BackHandler {
+        if (viewModel.currentQuestionIndex > 0) {
+            viewModel.previousQuestion()
+        } else {
+            showExitDialog = true;
+        }
+    }
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
     ) {
+        innerPadding ->
 
-        Column(
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .widthIn(max = 800.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(innerPadding)
         ) {
-
-            Text(
-                text = questionnaire.name,
-                fontSize = 32.sp
+            QuestionSidebar(
+                viewModel = viewModel
             )
 
-            Spacer(
-                modifier = Modifier.height(16.dp)
-            )
-
-            Text(
-                text = "Domanda ${currentQuestionIndex + 1} di ${questionnaire.questions.size}",
-                fontSize = 18.sp
-            )
-
-            LinearProgressIndicator(
-                progress = {
-                    progress
-                },
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp)
-            )
-
-            Spacer(
-                modifier = Modifier.height(40.dp)
-            )
-
-            Text(
-                text = currentQuestion.text,
-                fontSize = 28.sp,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(
-                modifier = Modifier.height(32.dp)
-            )
-
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .fillMaxSize()
+                    .padding(dimensionResource(R.dimen.screen_padding_s)),
+                contentAlignment = Alignment.Center
             ) {
-                items(currentQuestion.answers) { answer ->
 
-                    val isSelected = viewModel.selectedAnswers[currentQuestionIndex] == answer
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .widthIn(max = dimensionResource(R.dimen.content_max_width1)),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(
+                            R.string.question_index_text,
+                            currentQuestionIndex + 1,
+                            questionnaire.questions.size
+                        ),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
 
-                    Card(
+                    Spacer(
+                        modifier = Modifier.height(
+                            dimensionResource(R.dimen.spacing_sm)
+                        )
+                    )
+
+                    LinearProgressIndicator(
+                        progress = { progress },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(dimensionResource(R.dimen.spacing_xxl))
+                    )
+
+                    Text(
+                        text = currentQuestion.text,
+                        style = MaterialTheme.typography.headlineMedium,
+                        modifier = Modifier.fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(dimensionResource(R.dimen.spacing_xl))
+                    )
+
+                    LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable {
-                                viewModel.selectAnswer(answer)
-                            },
-                        shape = RoundedCornerShape(16.dp),
-                        border = if (isSelected) {
-                            BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                        } else {
-                            null
-                        },
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 2.dp
-                        )
+                            .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.spacing_md))
+                    ) {
+                        items(currentQuestion.answers) { answer ->
+
+                            val isSelected = viewModel.selectedAnswers[currentQuestionIndex] == answer
+
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        viewModel.selectAnswer(answer)
+                                    },
+                                shape = RoundedCornerShape(dimensionResource(R.dimen.card_corner_radius)),
+                                border = if (isSelected) {
+                                    BorderStroke(
+                                        width = dimensionResource(R.dimen.selected_card_border_width),
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                } else {
+                                    null
+                                },
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = dimensionResource(R.dimen.card_elevation)
+                                )
+                            ) {
+
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(
+                                            horizontal = dimensionResource(R.dimen.card_padding_horizontal),
+                                            vertical = dimensionResource(R.dimen.card_padding_vertical)
+                                        ),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+
+                                    RadioButton(
+                                        selected = isSelected,
+                                        onClick = {
+                                            viewModel.selectAnswer(answer)
+                                        }
+                                    )
+
+                                    Text(
+                                        text = answer.text,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        modifier = Modifier.padding(start = dimensionResource(R.dimen.spacing_md)),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(
+                        modifier = Modifier.height(dimensionResource(R.dimen.spacing_lg))
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    horizontal = 20.dp,
-                                    vertical = 16.dp
-                                ),
-                            verticalAlignment = Alignment.CenterVertically
+                        Button(
+                            onClick = {
+                                viewModel.previousQuestion()
+                            },
+                            enabled = currentQuestionIndex > 0
+                        ) {
+                            Text(
+                                text = stringResource(R.string.back_text)
+                            )
+                        }
+
+                        Button(
+                            onClick = {
+                                if (currentQuestionIndex == questionnaire.questions.lastIndex) {
+                                    if (viewModel.areAllQuestionsAnswered()) {
+                                        onFinished(
+                                            viewModel.calculateScore()
+                                        )
+
+                                    } else {
+                                        showIncompleteMessage = true
+
+                                        val firstUnanswered =
+                                            viewModel.getFirstUnansweredQuestionIndex()
+
+                                        if (firstUnanswered != null) {
+                                            viewModel.goToQuestion(firstUnanswered)
+                                        }
+                                    }
+
+                                } else {
+                                    viewModel.nextQuestion()
+                                }
+                            },
+                            enabled = viewModel.hasAnsweredCurrentQuestion()
                         ) {
 
-                            RadioButton(
-                                selected = isSelected,
-                                onClick = {
-                                    viewModel.selectAnswer(answer)
-                                }
-                            )
-
                             Text(
-                                text = answer.text,
-                                fontSize = 22.sp,
-                                modifier = Modifier.padding(start = 12.dp)
+                                text =
+                                    if (currentQuestionIndex == questionnaire.questions.lastIndex) {
+                                        stringResource(R.string.end_text)
+                                    } else {
+                                        stringResource(R.string.next_text)
+                                    }
                             )
                         }
                     }
                 }
             }
+        }
+    }
 
-            Spacer(
-                modifier = Modifier.height(40.dp)
-            )
+    if (showExitDialog) {
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+        AlertDialog(
+            onDismissRequest = {
+                showExitDialog = false
+            },
 
-                Button(
+            title = {
+                Text(stringResource(R.string.leave_questionnaire_text))
+            },
+
+            text = {
+                Text(
+                    stringResource(R.string.warning_questionnaire_text)
+                )
+            },
+
+            confirmButton = {
+                TextButton(
                     onClick = {
-                        viewModel.previousQuestion()
-                    },
-                    enabled = currentQuestionIndex > 0
+                        showExitDialog = false
+                        onExitQuestionnaire()
+                    }
                 ) {
-                    Text(
-                        text = "Indietro",
-                        fontSize = 18.sp
-                    )
+                    Text(stringResource(R.string.leave_text))
                 }
+            },
 
-                Button(
+            dismissButton = {
+                TextButton(
                     onClick = {
-                        val finished = viewModel.nextQuestion()
-
-                        if (finished) {
-                            onFinished(
-                                viewModel.calculateScore()
-                            )
-                        }
-                    },
-                    enabled = viewModel.hasAnsweredCurrentQuestion()
+                        showExitDialog = false
+                    }
                 ) {
-
-                    Text(
-                        text =
-                            if (currentQuestionIndex == questionnaire.questions.lastIndex) {
-                                "Termina"
-                            } else {
-                                "Avanti"
-                            },
-                        fontSize = 18.sp
-                    )
+                    Text(stringResource(R.string.continue_text))
                 }
             }
-        }
+        )
     }
 }

@@ -1,0 +1,111 @@
+{
+  "id": "pss10",
+  "name": "PSS-10",
+  "description": "Perceived Stress Scale - 10 item",
+  "maxScore": 40,
+  "scoreMultiplier": 1,
+  "groupScoreRanges": [],
+  "scoreRanges": [],
+  "questions": [
+    {
+      "text": "Nell'ultimo mese, con quale frequenza qualcosa di inatteso l'ha turbata/o?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Quasi mai", "score": 1 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 3 },
+        { "text": "Molto spesso", "score": 4 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza ha sentito di non riuscire a controllare le cose importanti della sua vita?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Quasi mai", "score": 1 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 3 },
+        { "text": "Molto spesso", "score": 4 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza si è sentita/o nervosa/o o sotto stress?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Quasi mai", "score": 1 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 3 },
+        { "text": "Molto spesso", "score": 4 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza si è sentita/o sicura/o della propria capacità di gestire i problemi personali?",
+      "answers": [
+        { "text": "Mai", "score": 4 },
+        { "text": "Quasi mai", "score": 3 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 1 },
+        { "text": "Molto spesso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza ha sentito che le cose stavano andando come desiderava?",
+      "answers": [
+        { "text": "Mai", "score": 4 },
+        { "text": "Quasi mai", "score": 3 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 1 },
+        { "text": "Molto spesso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza ha avuto la sensazione di non riuscire a far fronte a tutto ciò che doveva fare?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Quasi mai", "score": 1 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 3 },
+        { "text": "Molto spesso", "score": 4 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza è riuscita/o a controllare le irritazioni della vita quotidiana?",
+      "answers": [
+        { "text": "Mai", "score": 4 },
+        { "text": "Quasi mai", "score": 3 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 1 },
+        { "text": "Molto spesso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza ha sentito di avere la situazione sotto controllo?",
+      "answers": [
+        { "text": "Mai", "score": 4 },
+        { "text": "Quasi mai", "score": 3 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 1 },
+        { "text": "Molto spesso", "score": 0 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza si è arrabbiata/o per cose fuori dal suo controllo?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Quasi mai", "score": 1 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 3 },
+        { "text": "Molto spesso", "score": 4 }
+      ]
+    },
+    {
+      "text": "Nell'ultimo mese, con quale frequenza ha avuto la sensazione che le difficoltà si accumulassero al punto da non poterle superare?",
+      "answers": [
+        { "text": "Mai", "score": 0 },
+        { "text": "Quasi mai", "score": 1 },
+        { "text": "A volte", "score": 2 },
+        { "text": "Abbastanza spesso", "score": 3 },
+        { "text": "Molto spesso", "score": 4 }
+      ]
+    }
+  ]
+}
