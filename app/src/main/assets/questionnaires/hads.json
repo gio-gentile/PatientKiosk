@@ -1,7 +1,7 @@
 {
   "id": "hads",
   "name": "HADS",
-  "description": "Hospital Anxiety and Depression Scale",
+  "description": "Questionario di screening composto da due sottoscale dedicate ai sintomi di ansia e depressione.",
   "maxScore": 42,
   "scoreMultiplier": 1,
 

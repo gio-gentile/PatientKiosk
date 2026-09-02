@@ -1,7 +1,7 @@
 {
   "id": "gad7",
   "name": "GAD-7",
-  "description": "Generalized Anxiety Disorder 7-item scale",
+  "description": "Questionario breve per valutare la frequenza dei principali sintomi associati all'ansia generalizzata nelle ultime due settimane.",
   "maxScore": 21,
   "scoreMultiplier": 1,
   "groupScoreRanges": [],

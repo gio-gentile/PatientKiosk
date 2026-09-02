@@ -1,7 +1,7 @@
 {
   "id": "phq9",
   "name": "PHQ-9",
-  "description": "Patient Health Questionnaire-9",
+  "description": "Questionario di screening che valuta la frequenza dei principali sintomi depressivi nelle ultime due settimane.",
   "maxScore": 27,
   "scoreMultiplier": 1,
   "groupScoreRanges": [],

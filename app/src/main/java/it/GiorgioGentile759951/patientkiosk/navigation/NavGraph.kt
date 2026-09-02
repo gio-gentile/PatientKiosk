@@ -118,13 +118,8 @@ fun PatientKioskApp() {
             val groupResults = questionnaireViewModel.getGroupResults()
 
             ResultScreen(
-                questionnaireName = questionnaireViewModel.questionnaire?.name ?: "",
-                patientCode = questionnaireViewModel.patientCode,
+                viewModel= questionnaireViewModel,
                 score = score,
-                maxScore = questionnaireViewModel.getMaximumScore(),
-                interpretation = questionnaireViewModel.getScoreInterpretation(score),
-                groupResults = groupResults,
-
                 onNewQuestionnaireClick = {
 
                     questionnaireViewModel.resetQuestionnaire()

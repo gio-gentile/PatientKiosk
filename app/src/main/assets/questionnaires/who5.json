@@ -1,7 +1,7 @@
 {
   "id": "who5",
   "name": "WHO-5",
-  "description": "WHO-5 Well-Being Index",
+  "description": "Questionario breve sul benessere psicologico generale percepito nelle ultime due settimane.",
 
   "questions": [
     {

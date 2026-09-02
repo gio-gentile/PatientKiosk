@@ -1,7 +1,7 @@
 {
   "id": "dlqi",
   "name": "DLQI",
-  "description": "Dermatology Life Quality Index",
+  "description": "Questionario dermatologico che valuta quanto una condizione cutanea ha influenzato la qualità della vita del paziente nell'ultima settimana.",
   "questions": [
     {
       "text": "Negli ultimi 7 giorni, ha avuto prurito, dolore, o sensazioni di bruciore alla pelle?",

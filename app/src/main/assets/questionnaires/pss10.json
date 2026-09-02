@@ -1,11 +1,27 @@
 {
   "id": "pss10",
   "name": "PSS-10",
-  "description": "Perceived Stress Scale - 10 item",
+  "description": "Scala di autovalutazione che misura quanto le situazioni della propria vita siano state percepite come stressanti nell'ultimo mese.",
   "maxScore": 40,
   "scoreMultiplier": 1,
   "groupScoreRanges": [],
-  "scoreRanges": [],
+  "scoreRanges": [
+    {
+      "min": 0,
+      "max": 13,
+      "label": "Livello percepito di stress relativamente basso (solo scopo descrittivo)"
+    },
+    {
+      "min": 14,
+      "max": 26,
+      "label": "Livello percepito di stress intermedio (solo scopo descrittivo)"
+    },
+    {
+      "min": 27,
+      "max": 40,
+      "label": "Livello percepito di stress relativamente elevato (solo scopo descrittivo)"
+    }
+  ],
   "questions": [
     {
       "text": "Nell'ultimo mese, con quale frequenza qualcosa di inatteso l'ha turbata/o?",
